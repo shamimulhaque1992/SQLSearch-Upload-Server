@@ -31,43 +31,35 @@ async function run() {
       const username = req.body.username;
       const body = req.body.body;
       const postID = req.body.postID;
-      console.log(uid,username,body,postID)
+      console.log(uid, username, body, postID);
       const sqlInsert =
         "INSERT INTO comment (body, uid, username, postID) VALUES (?,?,?,?)";
       db.query(sqlInsert, [body, uid, username, postID], (result, err) => {
-        console.log(result)
+        console.log(result);
       });
     });
 
-    app.put('/update',(req,res) => {
+    app.put("/update", (req, res) => {
       const uid = req.body.uid;
       const username = req.body.username;
       const body = req.body.body;
       const postID = req.body.postID;
 
-      const sqlUPDATE = "UPDATE comment SET body =?, username =?, postID =? WHERE uid = ?";
+      const sqlUPDATE =
+        "UPDATE comment SET body =?, username =?, postID =? WHERE uid = ?";
       db.query(sqlUPDATE, [body, username, postID, uid], (result, err) => {
-        if(err){
-          console.log(err)
+        if (err) {
+          console.log(err);
         }
-        console.log(result)
+        console.log(result);
       });
-    })
+    });
   } finally {
   }
 }
 run().catch(console.dir);
 
 app.get("/", (req, res) => {
-  /* const sqlInsert =
-    "INSERT INTO comment (body, uid, username, postID) VALUES ('First comment',600, 'kashfee', 500);";
-  db.query(sqlInsert, (err, result) => {
-    if(err){
-        console.log(err)
-    }
-    console.log(result)
-    res.send("Welcome to mySql server");
-  }); */
   res.send("Welcome to mySql server");
 });
 app.listen(port, () => {
